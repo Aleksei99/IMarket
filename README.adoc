@@ -1,0 +1,77 @@
+= IMarket
+
+The project will be an improved copy of the
+https://https://github.com/Aleksei99/online-market[Online market]
+using Spring boot and REST API. It is designed to gain practical
+experience in Modern Programming Technologies.
+
+developed by Aleksei Smuraha
+
+== Description
+
+The project is intended for both buyers and sellers; it is an online platform where anyone can start selling their products through an online store.
+Sellers placing their products on the Internet site are obliged to bring the goods to the general warehouse of the online store.
+Admin rights are granted to the site owner and its employees in order to deliver the ordered goods to the client.
+
+== Database requirements:
+
+- At least 6 significant entities (@Entity)
+- Using Hibernate for entity mapping
+- The presence of connections: 1-1, 1-n, n-n
+- Availability of Embedded entities
+- The presence of inheritance in entities
+
+== Web requirements:
+- To implement the presentation layer, use the Spring MVC + Thymeleaf bundle(Perspectively REST + Vue.js, Angular or React)
+- UI must be a full-fledged web application with at least 10 web pages, logically connected to each other
+- Implement user registration page
+- Implement a page with pagination
+- Implement message internationalization using Spring
+
+== General requirements:
+- Using Spring Boot
+-  Using Spring Security for authentication and authorization on the system
+- The presence of the administrator role, as well as the presence of functions available only to the administrator
+- Support for working with Cyrillic
+
+== User abilities
+
+1. Admin abilities
+- add categories and subcategories
+- delete categories and subcategories
+- view all orders
+
+2. Seller abilities
+- add products
+- delete products
+- set price
+
+3. User abilities
+- Sign in/ Sign out
+- view and buy all available products
+
+== Technology Stack
+
+- Java 8
+
+- Maven
+
+- Tomcat
+
+- MySQL
+
+- Spring Boot
+
+- Hibernate
+
+- Junit
+
+- Thymeleaf
+
+- Perspectively
+* REST API
+* Vue.js, Angular or React
+
+
+
+

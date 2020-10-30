@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html th:lang="${lang}" th:with="lang=${#locale.language}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<form th:action="@{/register}" method="post" th:object="${user}" class="form-horizontal" >
+    <fieldset>
+        <div id="legend">
+            <legend class="" th:text="#{Registration}">Register</legend>
+        </div>
+        <div class="control-group">
+            <!-- Name -->
+            <label class="control-label"  for="name" th:text="#{Name}">Name</label>
+            <div class="controls">
+                <input type="text" th:field="*{name}" id="name" required autocomplete="off" class="input-xlarge">
+                <div class="error">
+                    <p th:each="err : ${#fields.errors('name')}" th:text="#{${err}}"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <!-- Surname -->
+            <label class="control-label"  for="surname" th:text="#{Surname}">Surname</label>
+            <div class="controls">
+                <input type="text" th:field="*{surname}" id="surname" required autocomplete="off" class="input-xlarge">
+                <div class="error">
+                    <p th:each="err : ${#fields.errors('surname')}" th:text="#{${err}}"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <!-- Username -->
+            <label class="control-label"  for="username" th:text="#{Login}">Username</label>
+            <div class="controls">
+                <input type="text" th:field="*{username}" id="username" required autocomplete="off" class="input-xlarge">
+                <div class="error">
+                    <p th:each="err : ${#fields.errors('username')}" th:text="#{${err}}"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <!-- Password-->
+            <label class="control-label" for="password" th:text="#{Password}">Password</label>
+            <div class="controls">
+                <input type="password" th:field="*{password}" id="password" required autocomplete="off" class="input-xlarge">
+                <div class="error">
+                    <p th:each="err : ${#fields.errors('password')}" th:text="#{${err}}"></p>
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <!-- Role -->
+            <label class="control-label" for="role" th:text="#{role}">Role</label>
+            <select id="role" th:field="*{role}">
+                <option th:each="role : ${roles}"
+                        th:text="${#strings.capitalize(#strings.toLowerCase(role))}"
+                        th:value="${role}">
+                </option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <!-- Button -->
+            <div class="controls">
+                <button class="btn btn-success" type="submit">Register</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+<svg class="bi" width="32" height="32" fill="currentColor">
+    <use xlink:href="bootstrap-icons.svg#heart-fill"/>
+</svg>
+<svg class="bi bi-chevron-right" width="32" height="32" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6.646 3.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L12.293 10 6.646 4.354a.5.5 0 010-.708z"/></svg>
+<i class="fas fa-cloud"></i>
+<i class="fas fa-heart"></i>
+<i class="fas fa-car"></i>
+<i class="fas fa-file"></i>
+<i class="fas fa-bars"></i>
+<i class="fas fa-shopping-cart" style="font-size:40px"></i>
+</body>
+</html>

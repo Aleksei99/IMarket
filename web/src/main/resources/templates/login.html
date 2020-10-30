@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"
+          id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+<form th:action="@{/login}" method="post">
+    <div id="legend">
+        <legend class="">Register</legend>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="username">Username</label>
+        <div class="controls">
+            <input type="text" name="user" id="username" required autocomplete="off">
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="password">Password</label>
+        <div class="controls">
+            <input type="password" name="pass" id="password" required autocomplete="off">
+        </div>
+    </div>
+    <p><input type="submit" value="Login"></p>
+</form>
+</body>
+</html>
