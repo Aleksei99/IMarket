@@ -35,4 +35,7 @@ public class Order extends BaseEntity {
 
     @Column(name = "time_order")
     private Timestamp timeOrder;
+
+    @Enumerated(EnumType.STRING)
+    private Statement statement= Statement.PROCESSED;
 }

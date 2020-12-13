@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{css/information.css}">
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/navBar.css}">
+</head>
+<body ng-app="app">
+<div th:insert="startPage :: bar"></div>
+<p th:text="#{amount}"></p><span th:text="${order.totalSum}"></span>
+<div th:if="${contact.id==null}">
+    <p th:text="#{pleaseAddCD}"></p>
+    <a th:href="@{/editDetails}" th:text="#{editInformation}"></a>
+</div>
+<div class="item" th:unless="${contact.id==null}">
+    <div th:if="${contact.anotherAddress==false}">
+        <div class="heading">
+            <h1 th:text="#{contactInformation}"></h1>
+        </div>
+        <p>City:<span th:text="${contact.homeAddress.city}"></span></p>
+        <p>Street:<span th:text="${contact.homeAddress.street}"></span></p>
+        <p>Number of house:<span th:text="${contact.homeAddress.house}"></span></p>
+        <p>Number of flat:<span th:text="${contact.homeAddress.number}"></span></p>
+        <p>Email:<span th:text="${contact.email}"></span></p>
+        <p>Telephone:<span th:text="${contact.telephone}"></span></p>
+    </div>
+    <div th:if="${contact.anotherAddress==true}">
+        <div class="heading">
+            <h1 th:text="#{contactInformation}"></h1>
+        </div>
+        <p>City:<span th:text="${contact.otherAddress.city}"></span></p>
+        <p>Street:<span th:text="${contact.otherAddress.street}"></span></p>
+        <p>Number of house:<span th:text="${contact.otherAddress.house}"></span></p>
+        <p>Number of flat:<span th:text="${contact.otherAddress.number}"></span></p>
+        <p>Email:<span th:text="${contact.email}"></span></p>
+        <p>Telephone:<span th:text="${contact.telephone}"></span></p>
+    </div>
+</div>
+<div th:unless="${contact.id==null}">
+    <div th:if="${contact.anotherAddress==false}">
+        <div class="btn">
+            <a th:href="@{/address/another}" th:text="#{anotherAddress}"></a>
+            <form th:action="@{/ordering/confirm}" method="post">
+                <input class="btn btn-success" type="submit" th:value="#{this}">
+            </form>
+        </div>
+    </div>
+    <div th:if="${contact.anotherAddress==true}">
+        <div class="btn">
+            <a th:href="@{/address/home}" th:text="#{useHome}"></a>
+            <form th:action="@{/ordering/confirm}" method="post">
+                <input class="btn btn-success" type="submit" th:value="#{this}">
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/js/angular.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+<script type="text/javascript" th:src="@{/js/angular.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>

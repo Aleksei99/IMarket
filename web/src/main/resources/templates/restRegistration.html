@@ -2,70 +2,80 @@
 <html th:lang="${lang}" th:with="lang=${#locale.language}" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>
-    <script type="text/javascript" th:src="@{/js/registration.js}"></script>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Numans');
+
+        html,body{
+            background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 100%;
+            font-family: 'Numans', sans-serif;
+        }
+    </style>
+    <title>Online market</title>
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
 </head>
 <body>
-
-
-        <div id="legend">
-            <legend class="" th:text="#{Registration}">Register</legend>
-        </div>
-        <div class="control-group">
-            <!-- Name -->
-            <label class="control-label"  for="name" th:text="#{Name}">Name</label>
-            <div class="controls">
-                <input type="text" id="name" required autocomplete="off" class="input-xlarge">
+<div class="title my-2">
+    <legend class="text-center" th:text="#{Registration}">Register</legend>
+</div>
+<div class="container mt-5" th:object="${user}">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="name" th:text="#{Name}"></label>
+            <input type="text" class="form-control" th:field="*{name}" id="name" th:placeholder="#{Name}">
+            <div class="text-danger">
+                <p id="ename" style="display: none" th:text="#{errors.user.name}"></p>
             </div>
         </div>
-
-        <div class="control-group">
-            <!-- Surname -->
-            <label class="control-label"  for="surname" th:text="#{Surname}">Surname</label>
-            <div class="controls">
-                <input type="text" id="surname" required autocomplete="off" class="input-xlarge">
+        <div class="form-group col-md-6">
+            <label for="surname" th:text="#{Surname}"></label>
+            <input type="text" class="form-control" th:field="*{surname}" id="surname" th:placeholder="#{Surname}">
+            <div class="text-danger">
+                <p id="esurname" style="display: none" th:text="#{errors.user.surname}"></p>
             </div>
         </div>
-
-        <div class="control-group">
-            <!-- Username -->
-            <label class="control-label"  for="username" th:text="#{Login}">Username</label>
-            <div class="controls">
-                <input type="text" id="username" required autocomplete="off" class="input-xlarge">
-            </div>
+    </div>
+    <div class="form-group">
+        <label for="username" th:text="#{Login}"></label>
+        <input type="text" class="form-control" th:field="*{username}" id="username" th:placeholder="#{Login}">
+        <div class="text-danger">
+            <p id="eusername" style="display: none" th:text="#{errors.user.username}"></p>
         </div>
-
-        <div class="control-group">
-            <!-- Password-->
-            <label class="control-label" for="password" th:text="#{Password}">Password</label>
-            <div class="controls">
-                <input type="password" id="password" required autocomplete="off" class="input-xlarge">
-            </div>
+    </div>
+    <div class="form-group">
+        <label for="password" th:text="#{Password}"></label>
+        <input type="password" class="form-control" th:field="*{password}" id="password" th:placeholder="#{Password}">
+        <div class="text-danger">
+            <p id="epassword" style="display: none" th:text="#{errors.user.password}"></p>
         </div>
-        <div class="control-group">
-            <!-- Role -->
-            <label class="control-label" for="role" th:text="#{role}">Role</label>
-            <select id="role">
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="role" th:text="#{role}"></label>
+            <select id="role" class="form-control">
                 <option th:each="role : ${roles}"
                         th:text="${#strings.capitalize(#strings.toLowerCase(role))}"
                         th:value="${role}">
                 </option>
             </select>
         </div>
-
-        <div class="control-group">
-            <!-- Button -->
-            <div class="controls">
-                <button class="btn btn-success" onclick="saveUser()" type="submit">Register</button>
-            </div>
-        </div>
-
-    <p id="animation-name"></p>
-    <p id="animation-date"></p>
+    </div>
+    <input type="submit" class="btn btn-primary" onclick="saveUser()" th:value="#{Register}"></input>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/registration.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrapValidator.js}"></script>
 </body>
 </html>

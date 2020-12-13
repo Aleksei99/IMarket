@@ -7,10 +7,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Repository
 @Transactional
+@Repository
 public interface SubCategoryRepository extends CrudRepository<Subcategory,Long> {
     List<Subcategory> findAllByCategoryId(Long id);
     Subcategory findSubcategoryById(Long id);
     List<Subcategory> findAll();
+    void deleteSubcategoryById(Long id);
 }

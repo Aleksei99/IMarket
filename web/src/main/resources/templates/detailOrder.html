@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html th:lang="${lang}" th:with="lang=${#locale.language}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/information.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/orderedProducts.css}">
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/navBar.css}">
+</head>
+<body ng-app="app">
+<div th:insert="startPage :: bar"></div>
+<div class="item" th:if="${contact.anotherAddress==false}">
+    <div class="heading">
+        <h1 th:text="#{contactInformation}"></h1>
+    </div>
+    <p>Name:<span th:text="${order.user.name}"></span></p>
+    <p>Surname:<span th:text="${order.user.surname}"></span></p>
+    <p>City:<span th:text="${contact.homeAddress.city}"></span></p>
+    <p>Street:<span th:text="${contact.homeAddress.street}"></span></p>
+    <p>Number of house:<span th:text="${contact.homeAddress.house}"></span></p>
+    <p>Number of flat:<span th:text="${contact.homeAddress.number}"></span></p>
+    <p>Email:<span th:text="${contact.email}"></span></p>
+    <p>Telephone:<span th:text="${contact.telephone}"></span></p>
+</div>
+<div class="item" th:if="${contact.anotherAddress==true}">
+    <div class="heading">
+        <h1 th:text="#{contactInformation}"></h1>
+    </div>
+    <p>Name:<span th:text="${order.user.name}"></span></p>
+    <p>Surname:<span th:text="${order.user.surname}"></span></p>
+    <p>City:<span th:text="${contact.otherAddress.city}"></span></p>
+    <p>Street:<span th:text="${contact.otherAddress.street}"></span></p>
+    <p>Number of house:<span th:text="${contact.otherAddress.house}"></span></p>
+    <p>Number of flat:<span th:text="${contact.otherAddress.number}"></span></p>
+    <p>Email:<span th:text="${contact.email}"></span></p>
+    <p>Telephone:<span th:text="${contact.telephone}"></span></p>
+</div>
+<h2 th:text="#{products}"></h2>
+<div class="product-item" th:each="product : ${products}">
+    <p>Product: <a th:text="${product.name}" th:href="@{/product/{id}(id=${product.id})}"></a ></p>
+    <p class="price">Price: <span th:text="${product.price}"></span >$</p>
+    <p>Seller: <a th:text="${product.seller.name}" th:href="@{/seller/{id}(id=${product.seller.id})}"></a ></p>
+    <div th:each="basket :${baskets}">
+        <div th:if="${basket.productID==product.id}">
+            <p>Count: <span th:text="${basket.count}"></span></p>
+        </div>
+    </div>
+</div>
+<p>Total amount of order is: <span th:text="${order.totalAmount}"></span></p>
+<div class="container">
+    <span>Текущий статус заказа </span><span th:text="${order.statement}"></span>
+    <form th:action="@{/admin/accept}" th:if="${order.statement==order.statement.PROCESSED}" method="post">
+        <input type="text" name="id" th:value="${order.id}" hidden>
+        <input type="submit" value="accept">
+    </form>
+    <form th:action="@{/admin/inWay}" th:if="${order.statement==order.statement.ACCEPTED}" method="post">
+        <input type="text" name="id" th:value="${order.id}" hidden>
+        <input type="submit" value="in way">
+    </form>
+    <form th:action="@{/admin/delivered}" th:if="${order.statement==order.statement.IN_WAY}" method="post">
+        <input type="text" name="id" th:value="${order.id}" hidden>
+        <input type="submit" value="delivered">
+    </form>
+    <div th:if="${order.statement==order.statement.DELIVERED}">
+        <p>Заказ доставлен</p>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/angular.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+<script type="text/javascript" th:src="@{/js/editContactInformation.js}"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Online market</title>
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/navBar.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/information.css}">
+</head>
+<body ng-app="app">
+<div th:insert="startPage :: bar"></div>
+<div class="container">
+    <p th:if="${contact==null}">No personal info Yet</p>
+    <div class="card mt-5" th:unless="${contact==null}">
+        <div class="card-title">
+            <h1 class="text-center" th:text="#{contactInformation}"></h1>
+            <div class="d-flex justify-content-center links">
+                <a class="small" th:href="@{/editDetails}" th:text="#{editInformation}"></a>
+            </div>
+        </div>
+        <div class="card-body">
+            <h2 class="card-title" th:text="#{city}"></h2>
+            <p class="card-text" th:text="${contact.homeAddress.city}"></p>
+        </div>
+    </div>
+    <div class="card mt-2" th:unless="${contact==null}">
+        <div class="card-body">
+            <h2 th:text="#{street}"></h2>
+            <p th:text="${contact.homeAddress.street}"></p>
+        </div>
+    </div>
+    <div class="card mt-2" th:unless="${contact==null}">
+        <div class="card-body">
+            <h2 th:text="#{house}"></h2>
+            <p th:text="${contact.homeAddress.house}"></p>
+        </div>
+    </div>
+    <div class="card mt-2" th:unless="${contact==null}">
+        <div class="card-body">
+            <h2 th:text="#{apartmentNumber}"></h2>
+            <p th:text="${contact.homeAddress.number}"></p>
+        </div>
+    </div>
+    <div class="card mt-2" th:unless="${contact==null}">
+        <div class="card-body">
+            <h2 th:text="#{email}"></h2>
+            <p th:text="${contact.email}"></p>
+        </div>
+    </div>
+    <div class="card mt-2" th:unless="${contact==null}">
+        <div class="card-body">
+            <h2 th:text="#{tel}"></h2>
+            <p th:text="${contact.telephone}"></p>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" th:src="@{/js/angular.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+</body>
+</html>

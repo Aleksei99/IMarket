@@ -22,7 +22,7 @@ public class Subcategory extends BaseEntity {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "subcategory")
+    @OneToMany(mappedBy = "subcategory",fetch = FetchType.EAGER)
     private List<Product> products;
 
     public Subcategory(Category category, String name) {

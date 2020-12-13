@@ -1,6 +1,7 @@
 package by.smuraha.market.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -38,6 +39,6 @@ public class ContactInformation extends BaseEntity{
     private String email;
 
     @Column(name = "another_address")
-    private Boolean anotherAddress;
+    private Boolean anotherAddress=false;
 
 }

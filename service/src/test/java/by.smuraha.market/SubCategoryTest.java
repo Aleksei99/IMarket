@@ -29,4 +29,10 @@ public class SubCategoryTest extends InitDbTest {
         subCategoryService.addSubCategory(new Subcategory(categoryService.getCategory(1L),"subcategory2"));
         Assert.assertEquals(subCategoryService.getAllSubCategories().size(),2);
     }
+
+    @Test
+    public void deleteSubCategoryTest(){
+        subCategoryService.deleteSubCategory(1L);
+        Assert.assertEquals(subCategoryService.getAllSubCategories().size(),0);
+    }
 }

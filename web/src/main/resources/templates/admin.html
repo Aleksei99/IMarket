@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html th:lang="${lang}" th:with="lang=${#locale.language}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Online market</title>
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/navBar.css}">
+    <!--    <link rel="stylesheet" type="text/css" th:href="@{css/forms.css}">-->
+</head>
+<body ng-app="app">
+<div th:insert="startPage :: bar"></div>
+<div class="card-group">
+    <div class="card" ng-controller="SubCategoriesController">
+        <div class="card-body">
+            <h5 class="card-title" th:text="#{admin.deleteSubcategory}"></h5>
+            <p class="card-text" th:text="#{subCategoriesDeleteInfo}"></p>
+            <div class="form-row">
+                <div class="col-5">
+                    <select id="deleteSubCat" class="custom-select mr-sm-2">
+                        <option ng-repeat="subcat in subCategories" ng-value="subcat.id">
+                            {{subcat.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-3">
+                    <input class="btn btn-primary mb-2" type="submit" th:value="#{delete}"
+                           onclick="deleteSubCategory()">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card" ng-controller="CategoriesController">
+        <div class="card-body">
+            <h5 class="card-title" th:text="#{admin.deleteCategory}"></h5>
+            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+            <div class="form-row">
+                <div class="col-5">
+                    <select id="deleteCat" class="custom-select mr-sm-2">
+                        <option ng-repeat="cat in categories" ng-value="cat.id">
+                            {{cat.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-3">
+                    <input class="btn btn-primary mb-2" type="submit" th:value="#{delete}" onclick="deleteCategory()">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title" th:text="#{admin.addCategory}"></h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
+                content. This card has even longer content than the first to show that equal height action.</p>
+            <div class="form-row">
+                <div class="col-5">
+                    <input class="form-control mb-2 mr-sm-2" type="text" id="category-form-name">
+                </div>
+                <div class="col-3">
+                    <input class="btn btn-primary mb-2" type="submit" th:value="#{add}" onclick="addCategory()">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card-columns mt-5 ml-3 mr-3">
+    <div ng-controller="CategoriesController">
+        <div class="card" ng-repeat="category in categories track by $index">
+            <ul class="card-body">
+                <h5 class="card-title"> {{category.name}}</h5>
+                <div ng-controller="SubCategoriesController">
+                    <div ng-repeat="subcat in subCategories">
+                        <div ng-if="subcat.category_id == category.id">
+                            <li>
+                                <span>{{subcat.name}}</span>
+                            </li>
+                        </div>
+                    </div>
+                </div>
+            </ul>
+
+            <div ng-controller="add">
+                <span th:text="#{admin.subCategory}"></span>
+                <div class="form-row">
+                    <div class="col-5">
+                        <input class="form-control mb-2 mr-sm-2" type="text" ng-model="arr[$index]">
+                    </div>
+                    <input type="text" ng-value="category.id" hidden>
+                    <div class="col-3">
+                        <button class="btn btn-primary mb-2" type="submit" th:text="#{add}"
+                                ng-click="addSubCat(arr[$index],category.id);"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" th:src="@{/js/angular.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/editCategories.js}"></script>
+
+</body>
+</html>

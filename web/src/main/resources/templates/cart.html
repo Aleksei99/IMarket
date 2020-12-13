@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html th:lang="${lang}" th:with="lang=${#locale.language}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{css/information.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/navBar.css}">
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
+</head>
+<body ng-app="app">
+<div th:insert="startPage :: bar"></div>
+<span th:text="#{cart.youHave}"></span>
+<span th:text="#{cart.products}"></span>
+<form th:action="@{/ordering}" method="post" th:object="${modelOrder}">
+    <div class="item" th:each="product: ${session.currentCart.getProducts()}">
+        <p th:text="${product.name}"></p>
+        <p th:text="${product.brand}"></p>
+        <p th:text="${product.description}"></p>
+        <p th:text="${product.price}"></p><br>
+        <input type="number" name="count" onkeypress="return event.charCode >= 48" min="1" th:value="1">
+        <input type="hidden" th:value="${product.price}" name="price">
+        <input type="hidden" th:value="${product.id}" name="ids">
+    </div>
+    <div th:unless="${session.currentCart.getProducts().size()==0}">
+        <input type="submit" th:value="#{cart.ordering}">
+    </div>
+</form>
+<div>
+    <form th:each="product: ${session.currentCart.getProducts()}" th:action="@{/product/remove}" method="post">
+        <input name="productID" th:value="${product.getId()}" hidden>
+        <button type="submit" th:text="${'Remove ' + product.name}"></button>
+    </form>
+</div>
+<script type="text/javascript" th:src="@{/js/angular.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>

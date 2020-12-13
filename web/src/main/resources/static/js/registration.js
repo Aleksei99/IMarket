@@ -18,7 +18,23 @@ function saveUser(){
         contentType: 'application/json',
         data: JSON.stringify(registrationData)
     }).done(function(data) {
-        $('#animation-name').text(data.name);
-        $('#animation-date').text(data.surname);
+        if(data.name==null&& data.surname==null && data.username==null && data.password==null){
+            window.location.replace("http://localhost:8080/login");
+                alert( "Successfully registered" );
+        }else {
+            alert("please check your data")
+            if(data.name !=="") {
+                $('#ename').show()
+            }else $('#ename').hide()
+            if(data.surname !=="") {
+                $('#esurname').show()
+            }else $('#esurname').hide()
+            if(data.username !=="") {
+                $('#eusername').show()
+            }else $('#eusername').hide()
+            if(data.password !=="") {
+                $('#epassword').show()
+            }else $('#epassword').hide()
+        }
     })
 }

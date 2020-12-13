@@ -41,4 +41,14 @@ public class Product extends BaseEntity {
 
     @ManyToMany(mappedBy = "products")
     private Set<Order> orders;
+
+
+    public Product(String brand, String name, BigDecimal price, Subcategory subcategory, User user, String description) {
+        this.brand=brand;
+        this.name=name;
+        this.price=price;
+        this.subcategory=subcategory;
+        this.seller=user;
+        this.description=description;
+    }
 }

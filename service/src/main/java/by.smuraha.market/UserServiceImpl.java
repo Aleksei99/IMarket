@@ -12,15 +12,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional
 public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
@@ -43,9 +41,31 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public User findUserById(Long id) {
+        return userRepository.findUserById(id);
+    }
+
+    @Override
     public User save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
+    }
+
+    @Override
+    public User setErrorJSONUser(Errors errors) {
+        List<FieldError> errorList = new ArrayList<>();
+        List<String> strings = new ArrayList<>();
+        errorList.add(errors.getFieldError("name"));
+        errorList.add(errors.getFieldError("surname"));
+        errorList.add(errors.getFieldError("username"));
+        errorList.add(errors.getFieldError("password"));
+        for (FieldError field:errorList) {
+            if(field!=null){
+                strings.add(field.getDefaultMessage());
+            } else strings.add("");
+        }
+
+        return new User(strings.get(0),strings.get(1),strings.get(2),strings.get(3),Role.USER);
     }
 
     @Override

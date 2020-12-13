@@ -20,7 +20,7 @@ public class Category extends BaseEntity {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "category")
+    @OneToMany(cascade = CascadeType.REMOVE,mappedBy = "category",fetch = FetchType.EAGER)
     private List<Subcategory> subcategory;
 
     public Category(String name) {

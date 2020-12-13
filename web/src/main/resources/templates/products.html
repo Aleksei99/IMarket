@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title>Online market</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/product.css}"/>
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/navBar.css}">
+</head>
+<body ng-app="app">
+<div th:insert="startPage :: bar"></div>
+<div th:fragment="products">
+    <div class="container mt-5">
+        <table class="table">
+            <thead class="table">
+            <tr>
+                <th scope="col" th:text="#{product.name}"></th>
+                <th scope="col" th:text="#{product.price}"></th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${products.isEmpty()}">
+                <td colspan="2">No products</td>
+            </tr>
+            <tr th:each="product : ${products}">
+                <td><a class="alert-link" data-toggle="collapse" th:href="'#'+${product.id}" role="button" aria-expanded="false"
+                       th:text="${product.name}">
+                </a>
+                    <div class="collapse" th:id="${product.id}">
+                        <div class="mt-2" th:text="#{addProduct.descr}"></div>
+                        <div class="card" style="width: 20rem;">
+                            <div class="card card-body" th:text="${product.description}">
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td><span th:text="${product.price}+' $ '"></span></td>
+                <div th:unless="${session.currentCart.getProducts().contains(product)}"
+                     sec:authorize="isAuthenticated()">
+                    <td>
+                        <form action="/cart/add" method="post">
+                            <input hidden name="productID" th:value="${product.getId()}">
+                            <button class="btn btn-success" th:text="#{add}" type="submit"></button>
+                        </form>
+                    </td>
+                </div>
+                <div th:if="${session.currentCart.getProducts().contains(product)}">
+                    <td>
+                        <form action="/cart/remove" method="post">
+                            <input hidden name="productID" th:value="${product.getId()}">
+                            <button class="btn btn-danger" th:text="#{remove}" type="submit"></button>
+                        </form>
+                    </td>
+                </div>
+                <div sec:authorize="not isAuthenticated()">
+                    <td>
+                        <a class="link" th:href="@{/registration}" th:text="#{reg}"></a>
+                        <span th:text="#{OR}"></span>
+                        <a class="link" th:href="@{/login}" th:text="#{log.in}"></a>
+                        <span th:text="#{toBuy}"></span>
+                    </td>
+                </div>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/js/angular.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>

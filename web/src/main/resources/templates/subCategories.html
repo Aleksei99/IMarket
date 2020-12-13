@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Online market</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/navBar.css}">
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/subCategorys.css}">
+    <style type="text/css">
+        h1 {
+            top: 50px;
+            text-align: center;
+        }
+
+        body {
+            background: #e6f4fd;
+        }
+
+        .subCat a {
+            position: relative;
+            left: 17%;
+            background-color: white;
+            float: left;
+            border-radius: 5px;
+            display: block;
+            color: #131313;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            width: 350px;
+            margin-right: 17%;
+            margin-top: 15px;
+        }
+
+        .subCat a:hover {
+            background-color: #1abc9c;
+            color: #131313;
+        }
+    </style>
+</head>
+<body ng-app="app">
+<div th:insert="startPage :: bar"></div>
+<h1 th:text="#{categoriesPr}"></h1>
+<td>
+    <p th:if="${subCategories.isEmpty()}" th:text="#{noSubCategories}" style="text-align: center"></p>
+    <div class="subCat" th:each="subCategory: ${subCategories}" th:unless="${subCategories.isEmpty()}">
+        <a th:text="${subCategory.name}" th:href="@{/products/{id}(id=${subCategory.id})}"></a>
+    </div>
+</td>
+<script type="text/javascript" th:src="@{/js/angular.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>

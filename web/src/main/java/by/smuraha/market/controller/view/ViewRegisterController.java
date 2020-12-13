@@ -1,4 +1,4 @@
-package by.smuraha.market.controller;
+package by.smuraha.market.controller.view;
 
 import by.smuraha.market.dto.RoleDto;
 import by.smuraha.market.entity.User;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 @Controller
-public class RestRegisterView {
+public class ViewRegisterController {
 
     @ModelAttribute("user")
     public User getUser(){

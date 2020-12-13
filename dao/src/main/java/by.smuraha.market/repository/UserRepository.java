@@ -9,5 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface UserRepository extends CrudRepository<User,Long> {
     User findByUsername(String username);
+    User findUserById(Long id);
     void deleteByUsername(String username);
 }

@@ -30,7 +30,7 @@ public class ContactInformationTest extends InitDbTest{
     public void deleteContactInformationTest(){
         User user = userService.findByUsername("alex");
         Optional<ContactInformation> inf = contactService.findById(1L);
-        Assert.assertFalse(inf.isPresent());
+        Assert.assertTrue(inf.isPresent());
         contactService.deleteContactInformation(user);
         Optional<ContactInformation> inf2 = contactService.findById(1L);
         Assert.assertFalse(inf2.isPresent());
