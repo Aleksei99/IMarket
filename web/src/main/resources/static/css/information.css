@@ -9,7 +9,7 @@
     background-color: #fff;
     padding: 15px;
     width: 400px;
-    left:50px;
+    left:350px;
 }
 .item span p{
     position: sticky;
@@ -35,7 +35,7 @@ body{
 /*    padding: 14px 20px;*/
 /*    text-decoration: none;*/
 /*}*/
-.btn a:hover{
-    background-color: #1abc9c;
-    color: #131313;
-}
+/*.btn a:hover{*/
+/*    background-color: #1abc9c;*/
+/*    color: #131313;*/
+/*}*/

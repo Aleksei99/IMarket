@@ -1,6 +1,7 @@
 package by.smuraha.market.controller;
 
 import by.smuraha.market.*;
+import by.smuraha.market.dto.CartDto;
 import by.smuraha.market.entity.ContactInformation;
 import by.smuraha.market.entity.Order;
 import by.smuraha.market.entity.User;
@@ -58,6 +59,8 @@ public class OrderController {
         basketService.save(currentOrder,id);
         List<Order> userOrders = orderService.findUserOrders(order.getUser().getId());
         model.addAttribute("trackingOrders",userOrders);
+        //очистка корзины
+        session.setAttribute("currentCart",new CartDto());
         return "redirect:/user/orders";
     }
 

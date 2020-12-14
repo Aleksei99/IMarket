@@ -42,6 +42,19 @@ public class CartController {
         return "redirect:/products/" +subID;
     }
 
+    @PostMapping("/cart/home/add")
+    public String homeAddProductToCart(@RequestParam("productID") Long id, HttpSession session){
+        if(session.getAttribute("currentCart")==null){
+            session.setAttribute("currentCart",new CartDto());
+        }
+        Product product = productService.findProduct(id);
+        CartDto currentCart = (CartDto) session.getAttribute("currentCart");
+        currentCart.getProducts().add(product);
+        session.setAttribute("currentCart",currentCart);
+        return "redirect:/home";
+    }
+
+
     @PostMapping("/cart/remove")
     public String removeProductFromCart(@RequestParam("productID") Long id, HttpSession session){
         Product product = productService.findProduct(id);
@@ -50,6 +63,15 @@ public class CartController {
         session.setAttribute("currentCart",currentCart);
         Long subID = product.getSubcategory().getId();
         return "redirect:/products/" +subID;
+    }
+
+    @PostMapping("/cart/home/remove")
+    public String homeRemoveProductFromCart(@RequestParam("productID") Long id, HttpSession session){
+        Product product = productService.findProduct(id);
+        CartDto currentCart = (CartDto) session.getAttribute("currentCart");
+        currentCart.getProducts().remove(product);
+        session.setAttribute("currentCart",currentCart);
+        return "redirect:/home";
     }
 
     @PostMapping("/product/remove")

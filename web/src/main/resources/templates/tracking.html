@@ -9,8 +9,9 @@
 </head>
 <body ng-app="app">
 <div th:insert="startPage :: bar"></div>
-<div class="container">
-    <table class="table">
+<div class="container mt-5">
+    <h2 class="text-center" th:text="#{myOrders}"></h2>
+    <table class="table mt-5">
         <thead class="table">
         <tr>
             <th th:text="#{nOrder}"></th>

@@ -3,70 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/information.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/orderedProducts.css}">
+    <!--    <link rel="stylesheet" type="text/css" th:href="@{/css/orderedProducts.css}">-->
     <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
     <link rel="stylesheet" type="text/css" th:href="@{/css/navBar.css}">
 </head>
 <body ng-app="app">
 <div th:insert="startPage :: bar"></div>
-<div class="item" th:if="${contact.anotherAddress==false}">
-    <div class="heading">
-        <h1 th:text="#{contactInformation}"></h1>
-    </div>
-    <p>Name:<span th:text="${order.user.name}"></span></p>
-    <p>Surname:<span th:text="${order.user.surname}"></span></p>
-    <p>City:<span th:text="${contact.homeAddress.city}"></span></p>
-    <p>Street:<span th:text="${contact.homeAddress.street}"></span></p>
-    <p>Number of house:<span th:text="${contact.homeAddress.house}"></span></p>
-    <p>Number of flat:<span th:text="${contact.homeAddress.number}"></span></p>
-    <p>Email:<span th:text="${contact.email}"></span></p>
-    <p>Telephone:<span th:text="${contact.telephone}"></span></p>
-</div>
-<div class="item" th:if="${contact.anotherAddress==true}">
-    <div class="heading">
-        <h1 th:text="#{contactInformation}"></h1>
-    </div>
-    <p>Name:<span th:text="${order.user.name}"></span></p>
-    <p>Surname:<span th:text="${order.user.surname}"></span></p>
-    <p>City:<span th:text="${contact.otherAddress.city}"></span></p>
-    <p>Street:<span th:text="${contact.otherAddress.street}"></span></p>
-    <p>Number of house:<span th:text="${contact.otherAddress.house}"></span></p>
-    <p>Number of flat:<span th:text="${contact.otherAddress.number}"></span></p>
-    <p>Email:<span th:text="${contact.email}"></span></p>
-    <p>Telephone:<span th:text="${contact.telephone}"></span></p>
-</div>
-<h2 th:text="#{products}"></h2>
-<div class="product-item" th:each="product : ${products}">
-    <p>Product: <a th:text="${product.name}" th:href="@{/product/{id}(id=${product.id})}"></a ></p>
-    <p class="price">Price: <span th:text="${product.price}"></span >$</p>
-    <p>Seller: <a th:text="${product.seller.name}" th:href="@{/seller/{id}(id=${product.seller.id})}"></a ></p>
-    <div th:each="basket :${baskets}">
-        <div th:if="${basket.productID==product.id}">
-            <p>Count: <span th:text="${basket.count}"></span></p>
-        </div>
-    </div>
-</div>
-<p>Total amount of order is: <span th:text="${order.totalAmount}"></span></p>
 <div class="container">
-    <span>Текущий статус заказа </span><span th:text="${order.statement}"></span>
+    <div class="text-center">
+        <span th:text="#{currentStatus}+'  '"></span><span th:text="${order.statement}"></span>
+    </div>
+</div>
+<div class="container  mt-3 text-center">
     <form th:action="@{/admin/accept}" th:if="${order.statement==order.statement.PROCESSED}" method="post">
         <input type="text" name="id" th:value="${order.id}" hidden>
-        <input type="submit" value="accept">
+        <input class="btn btn-success" type="submit" value="accept">
     </form>
     <form th:action="@{/admin/inWay}" th:if="${order.statement==order.statement.ACCEPTED}" method="post">
         <input type="text" name="id" th:value="${order.id}" hidden>
-        <input type="submit" value="in way">
+        <input class="btn btn-success" type="submit" value="in way">
     </form>
     <form th:action="@{/admin/delivered}" th:if="${order.statement==order.statement.IN_WAY}" method="post">
         <input type="text" name="id" th:value="${order.id}" hidden>
-        <input type="submit" value="delivered">
+        <input class="btn btn-success" type="submit" value="delivered">
     </form>
     <div th:if="${order.statement==order.statement.DELIVERED}">
         <p>Заказ доставлен</p>
     </div>
 </div>
+<div class="container ml-1" th:if="${contact.anotherAddress==false}">
+    <div class="heading">
+        <h1 th:text="#{contactInformation}"></h1>
+    </div>
+    <dl class="row">
+        <dt class="col-sm-3" th:text="#{Name}"></dt>
+        <dd class="col-sm-9" th:text="${order.user.name}"></dd>
+        <dt class="col-sm-3" th:text="#{Surname}"></dt>
+        <dd class="col-sm-9" th:text="${order.user.surname}"></dd>
+        <dt class="col-sm-3" th:text="#{city}"></dt>
+        <dd class="col-sm-9" th:text="${contact.homeAddress.city}"></dd>
+        <dt class="col-sm-3" th:text="#{street}"></dt>
+        <dd class="col-sm-9" th:text="${contact.homeAddress.street}"></dd>
+        <dt class="col-sm-3" th:text="#{house}"></dt>
+        <dd class="col-sm-9" th:text="${contact.homeAddress.house}"></dd>
+        <dt class="col-sm-3" th:text="#{apartmentNumber}"></dt>
+        <dd class="col-sm-9" th:text="${contact.homeAddress.number}"></dd>
+        <dt class="col-sm-3" th:text="#{email}"></dt>
+        <dd class="col-sm-9" th:text="${contact.email}"></dd>
+        <dt class="col-sm-3" th:text="#{tel}"></dt>
+        <dd class="col-sm-9" th:text="${contact.telephone}"></dd>
+    </dl>
+</div>
+<div class="container ml-1" th:if="${contact.anotherAddress==true}">
+    <div class="heading">
+        <h1 th:text="#{contactInformation}"></h1>
+    </div>
+    <dl class="row">
+        <dt class="col-sm-3" th:text="#{Name}"></dt>
+        <dd class="col-sm-9" th:text="${order.user.name}"></dd>
+        <dt class="col-sm-3" th:text="#{Surname}"></dt>
+        <dd class="col-sm-9" th:text="${order.user.surname}"></dd>
+        <dt class="col-sm-3" th:text="#{city}"></dt>
+        <dd class="col-sm-9" th:text="${contact.otherAddress.city}"></dd>
+        <dt class="col-sm-3" th:text="#{street}"></dt>
+        <dd class="col-sm-9" th:text="${contact.otherAddress.street}"></dd>
+        <dt class="col-sm-3" th:text="#{house}"></dt>
+        <dd class="col-sm-9" th:text="${contact.otherAddress.house}"></dd>
+        <dt class="col-sm-3" th:text="#{apartmentNumber}"></dt>
+        <dd class="col-sm-9" th:text="${contact.otherAddress.number}"></dd>
+        <dt class="col-sm-3" th:text="#{email}"></dt>
+        <dd class="col-sm-9" th:text="${contact.email}"></dd>
+        <dt class="col-sm-3" th:text="#{tel}"></dt>
+        <dd class="col-sm-9" th:text="${contact.telephone}"></dd>
+    </dl>
+</div>
+<h2 th:text="#{products}"></h2>
+<div class="container ml-1 ">
+    <table class="table">
+        <thead class="table">
+        <tr>
+            <th scope="col" th:text="#{product.name}"></th>
+            <th scope="col" th:text="#{product.price}"></th>
+            <th scope="col" th:text="#{Seller}"></th>
+            <th scope="col" th:text="#{number}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${products}" th:fragment="orderedProducts">
+            <td>
+                <a th:text="${product.name}" th:href="@{/product/{id}(id=${product.id})}"></a>
+            </td>
+            <td>
+                <span th:text="${product.price}"></span>$
+            </td>
+            <td>
+                <a th:text="${product.seller.name}" th:href="@{/seller/{id}(id=${product.seller.id})}"></a>
+            </td>
+            <td>
+                <div th:each="basket :${baskets}">
+                    <div th:if="${basket.productID==product.id}">
+                        <span th:text="${basket.count}"></span>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<span style="font-size: 25px" th:text="#{amount}"></span><span style="font-size: 20px"
+                                                               th:text="${order.totalAmount}"></span>$
+
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>

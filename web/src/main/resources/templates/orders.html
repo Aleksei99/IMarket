@@ -9,16 +9,18 @@
 </head>
 <body ng-app="app">
 <div th:insert="startPage :: bar"></div>
-<h1 th:text="#{orders}"></h1>
-<div>
-    <form th:action="@{/admin/orders/time}" method="post">
-        <label for="number" th:text="#{showOrders}"></label>
-        <input type="number" name="hours" id="number"><span th:text="#{hours}"></span>
-        <input type="submit" th:value="#{display}">
-    </form>
-</div>
-<div  th:each="order: ${orders}" th:unless="${orders.isEmpty()}">
-    <a th:text="${order.id}" th:href="@{/order/{id}(id=${order.id})}"></a>
+<div class="container mt-5">
+    <h1 class="text-center" th:text="#{orders}"></h1>
+    <div class="text-center mt-3">
+        <form th:action="@{/admin/orders/time}" method="post">
+            <label for="number" th:text="#{showOrders}"></label>
+            <input class="btn border-success" required type="number" value="1" min="1" name="hours" id="number"><span th:text="#{hours}"></span>
+            <input class="btn btn-success" type="submit" th:value="#{display}">
+        </form>
+    </div>
+    <div class="text-center mt-3" th:each="order: ${orders}" th:unless="${orders.isEmpty()}">
+    <span>ID:</span><a class="btn btn-success" th:text="${order.id}" th:href="@{/order/{id}(id=${order.id})}"></a>
+    </div>
 </div>
 <script type="text/javascript" th:src="@{/js/angular.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/main.js}"></script>

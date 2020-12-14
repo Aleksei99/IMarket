@@ -10,50 +10,71 @@
 </head>
 <body ng-app="app">
 <div th:insert="startPage :: bar"></div>
-<p th:text="#{amount}"></p><span th:text="${order.totalSum}"></span>
-<div th:if="${contact.id==null}">
-    <p th:text="#{pleaseAddCD}"></p>
-    <a th:href="@{/editDetails}" th:text="#{editInformation}"></a>
+<div class="container text-center">
+<h4 th:text="#{amount}"></h4><span th:text="${order.totalSum}+'$'"></span>
 </div>
-<div class="item" th:unless="${contact.id==null}">
-    <div th:if="${contact.anotherAddress==false}">
-        <div class="heading">
-            <h1 th:text="#{contactInformation}"></h1>
+    <div th:if="${contact.id==null}">
+        <div class="container">
+        <h4 th:text="#{pleaseAddCD}"></h4>
+        <a th:href="@{/editDetails}" th:text="#{editInformation}"></a>
         </div>
-        <p>City:<span th:text="${contact.homeAddress.city}"></span></p>
-        <p>Street:<span th:text="${contact.homeAddress.street}"></span></p>
-        <p>Number of house:<span th:text="${contact.homeAddress.house}"></span></p>
-        <p>Number of flat:<span th:text="${contact.homeAddress.number}"></span></p>
-        <p>Email:<span th:text="${contact.email}"></span></p>
-        <p>Telephone:<span th:text="${contact.telephone}"></span></p>
     </div>
-    <div th:if="${contact.anotherAddress==true}">
-        <div class="heading">
-            <h1 th:text="#{contactInformation}"></h1>
+
+<div class="container">
+    <div class="item" th:unless="${contact.id==null}">
+        <div th:if="${contact.anotherAddress==false}">
+            <div class="heading">
+                <h1 th:text="#{contactInformation}"></h1>
+            </div>
+            <p>City:<span th:text="${contact.homeAddress.city}"></span></p>
+            <p>Street:<span th:text="${contact.homeAddress.street}"></span></p>
+            <p>Number of house:<span th:text="${contact.homeAddress.house}"></span></p>
+            <p>Number of flat:<span th:text="${contact.homeAddress.number}"></span></p>
+            <p>Email:<span th:text="${contact.email}"></span></p>
+            <p>Telephone:<span th:text="${contact.telephone}"></span></p>
         </div>
-        <p>City:<span th:text="${contact.otherAddress.city}"></span></p>
-        <p>Street:<span th:text="${contact.otherAddress.street}"></span></p>
-        <p>Number of house:<span th:text="${contact.otherAddress.house}"></span></p>
-        <p>Number of flat:<span th:text="${contact.otherAddress.number}"></span></p>
-        <p>Email:<span th:text="${contact.email}"></span></p>
-        <p>Telephone:<span th:text="${contact.telephone}"></span></p>
+        <div th:if="${contact.anotherAddress==true}">
+            <div class="heading">
+                <h1 th:text="#{contactInformation}"></h1>
+            </div>
+            <p>City:<span th:text="${contact.otherAddress.city}"></span></p>
+            <p>Street:<span th:text="${contact.otherAddress.street}"></span></p>
+            <p>Number of house:<span th:text="${contact.otherAddress.house}"></span></p>
+            <p>Number of flat:<span th:text="${contact.otherAddress.number}"></span></p>
+            <p>Email:<span th:text="${contact.email}"></span></p>
+            <p>Telephone:<span th:text="${contact.telephone}"></span></p>
+        </div>
     </div>
 </div>
 <div th:unless="${contact.id==null}">
-    <div th:if="${contact.anotherAddress==false}">
-        <div class="btn">
-            <a th:href="@{/address/another}" th:text="#{anotherAddress}"></a>
-            <form th:action="@{/ordering/confirm}" method="post">
-                <input class="btn btn-success" type="submit" th:value="#{this}">
-            </form>
+    <div class="flex justify-content-center">
+        <div th:if="${contact.anotherAddress==false}">
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col">
+                        <a class="btn btn-success" th:href="@{/address/another}" th:text="#{anotherAddress}"></a>
+                    </div>
+                    <div class="col">
+                        <form th:action="@{/ordering/confirm}" method="post">
+                            <input class="btn btn-success" type="submit" th:value="#{this}">
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <div th:if="${contact.anotherAddress==true}">
-        <div class="btn">
-            <a th:href="@{/address/home}" th:text="#{useHome}"></a>
-            <form th:action="@{/ordering/confirm}" method="post">
-                <input class="btn btn-success" type="submit" th:value="#{this}">
-            </form>
+        <div th:if="${contact.anotherAddress==true}">
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col">
+                        <a class="btn btn-success" th:href="@{/address/home}" th:text="#{useHome}"></a>
+                    </div>
+                    <div class="col">
+                        <form th:action="@{/ordering/confirm}" method="post">
+                            <input class="btn btn-success" type="submit" th:value="#{this}">
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
