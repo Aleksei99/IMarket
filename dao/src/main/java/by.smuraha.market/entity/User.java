@@ -1,5 +1,6 @@
 package by.smuraha.market.entity;
 
+import by.smuraha.market.myAnotations.Unique;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -25,8 +26,7 @@ public class User extends BaseEntity{
     private String surname;
 
     @Column(unique = true)
-    @Pattern(regexp = "^[a-zA-Z][a-zA-Z0-9-_.]{1,20}$",
-            message = "errors.user.username")
+    @Unique(message = "errors.user.unique")
     private String username;
 
     @Column
@@ -43,7 +43,7 @@ public class User extends BaseEntity{
 
     public User(@Size(min = 3, max = 16, message = "errors.user.name") String name,
                 @Size(min = 3, max = 24, message = "errors.user.surname") String surname,
-                @Pattern(regexp = "^[a-zA-Z][a-zA-Z0-9-_.]{1,20}$", message = "errors.user.username") String username,
+                @Unique(message = "errors.user.unique") String username,
                 @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$", message = "errors.user.password") String password,
                 Role role) {
         this.name = name;
